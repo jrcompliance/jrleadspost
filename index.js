@@ -8,7 +8,7 @@ const port = process.env.PORT || 3000
 
 app.post("/create", async (req, res) => {
   const data = req.body;
-  await User.add({ data });
+  await User.add(data);
   res.send({ msg: "User Added" });
 });
 
