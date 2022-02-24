@@ -2,11 +2,12 @@ const express = require("express");
 const firebase = require("firebase")
 const cors = require("cors");
 const User = require("./config");
+const port = process.env.PORT || 3000
 const { firestore } = require("firebase-admin");
 const app = express();
 app.use(express.json());
 app.use(cors());
-const port = process.env.PORT || 3000
+
 
 app.post("/create", async (req, res) => {
   const data = req.body;
@@ -19,11 +20,11 @@ app.post("/create", async (req, res) => {
     Certificates:[],
     CompanyDetails:[
         {
-            contactperson:"Yalagala Nukaiah",
-            email:"yalagalanukaiah@gmail.com",
-            phone:"8247467723"
-            
-        }],
+            contactperson:req.body.contactperson,
+            email:req.body.email,
+            phone:req.body.phone   
+        }
+      ],
     CxID:102,
     cat:"NEW",
     companyname:"",
@@ -43,9 +44,9 @@ app.post("/create", async (req, res) => {
     status4:"PAYMENT",
     status5:"IRRELEVANT",
     success:0,
-    task:"Srinivas Assign it",
+    task:req.body.task +" "+ req.body.contactperson,
     time:firebase.firestore.Timestamp.fromDate(new Date()),
-    website:""
+    website:""          
 });
   res.send({ msg: "User Added" });
 
